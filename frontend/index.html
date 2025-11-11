@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cable Car Tracker Dashboard - Spell Innovation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">Spell Innovation</div>
+            <h1 class="title">Cable Car Tracker Dashboard</h1>
+        </div>
+    </header>
+
+    <!-- Status Summary Bar -->
+    <section class="status-summary">
+        <div class="container">
+            <div class="status-cards">
+                <div class="status-card">
+                    <div class="status-label">Total Registered</div>
+                    <div class="status-value" id="totalRegistered">0</div>
+                    <div class="status-badge red">RED</div>
+                </div>
+                <div class="status-card">
+                    <div class="status-label">Total IN</div>
+                    <div class="status-value" id="totalIn">0</div>
+                    <div class="status-badge yellow">YELLOW</div>
+                </div>
+                <div class="status-card">
+                    <div class="status-label">Total OUT</div>
+                    <div class="status-value" id="totalOut">0</div>
+                    <div class="status-badge green">GREEN</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Camera View -->
+    <section class="camera-section">
+        <div class="container">
+            <div class="camera-grid">
+                <div class="camera-view">
+                    <h3>IN Camera</h3>
+                    <div class="camera-stream" id="inCamera">
+                        <img src="http://localhost:8090/api/camera/in/stream" 
+                             alt="IN Camera Stream" 
+                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\'camera-placeholder\'><span>📹</span><p>IN Camera - Offline</p></div>';">
+                    </div>
+                    <div class="camera-status">
+                        <span class="status-dot active"></span>
+                        <span>Live</span>
+                    </div>
+                </div>
+                <div class="camera-view">
+                    <h3>OUT Camera</h3>
+                    <div class="camera-stream" id="outCamera">
+                        <img src="http://localhost:8090/api/camera/out/stream" 
+                             alt="OUT Camera Stream" 
+                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\'camera-placeholder\'><span>📹</span><p>OUT Camera - Offline</p></div>';">
+                    </div>
+                    <div class="camera-status">
+                        <span class="status-dot active"></span>
+                        <span>Live</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- People Table Section -->
+    <section class="table-section">
+        <div class="container">
+            <div class="table-header">
+                <h2>Registered People</h2>
+                <div class="table-controls">
+                    <input type="text" id="searchInput" placeholder="Search by name..." class="search-input">
+                    <button class="btn btn-secondary" onclick="exportToCSV()">
+                        📥 Export CSV
+                    </button>
+                    <button class="btn btn-primary" onclick="openRegistrationModal()">
+                        ➕ Register Person
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="people-table" id="peopleTable">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Last IN Time</th>
+                            <th>Last OUT Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="peopleTableBody">
+                        <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register New Person</h2>
+                <span class="close" onclick="closeRegistrationModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <div class="photo-capture">
+                            <div class="photo-preview" id="photoPreview">
+                                <span class="photo-icon">👤</span>
+                                <p>No photo captured</p>
+                            </div>
+                            <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                            <button type="button" class="btn btn-secondary" onclick="capturePhoto()">
+                                📷 Capture Photo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personName">Name *</label>
+                        <input type="text" id="personName" required placeholder="Enter full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personAge">Age *</label>
+                        <input type="number" id="personAge" required placeholder="Enter age" min="1" max="150">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personLocation">Location *</label>
+                        <input type="text" id="personLocation" required placeholder="Enter location">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeRegistrationModal()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Register Person
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
