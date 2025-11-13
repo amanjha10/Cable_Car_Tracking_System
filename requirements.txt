@@ -1,0 +1,11 @@
+opencv-python
+numpy
+pandas
+insightface
+pillow
+pillow-heif
+ffmpeg-python
+python-dateutil
+flask
+flask-cors
+onnxruntime
