@@ -14,7 +14,6 @@ import numpy as np
 app = Flask(__name__, template_folder='frontend', static_folder='frontend')
 CORS(app)
 
-# Ensure required directories exist
 os.makedirs('images', exist_ok=True)
 os.makedirs('embeddings', exist_ok=True)
 
