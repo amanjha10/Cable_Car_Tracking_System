@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Simplified Face Detection System - Manual Mode
-For testing when cameras are not accessible
-"""
-
 import cv2
 import numpy as np
 import pickle
